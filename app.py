@@ -9,33 +9,72 @@ import streamlit as st
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT / 'assets'
-st.set_page_config(page_title='Pearls of the Past | UAE × NASA', page_icon='🦪', layout='wide')
+st.set_page_config(page_title='Pearls of the Past | UAE Ocean Explorer', page_icon='🐚', layout='centered', initial_sidebar_state='collapsed')
 st.markdown("""<style>
-/* High contrast mobile-first theme: readable in light and dark system settings */
-:root{color-scheme:light!important}
-.stApp,.stAppViewContainer,[data-testid="stAppViewContainer"]{background:#F5FAFC!important;color:#123249!important}
-[data-testid="stHeader"]{background:#F5FAFC!important}
-[data-testid="stSidebar"]{background:#E4F4F8!important}
-[data-testid="stSidebar"] *{color:#123249!important}
-html,body,p,li,label,span,h1,h2,h3,h4,h5,h6,div[data-testid="stMarkdownContainer"]{color:#123249}
-.stApp h1,.stApp h2,.stApp h3,.stApp h4{color:#073B56!important}
-.stApp p,.stApp li,.stApp label,.stApp [data-testid="stMarkdownContainer"]{color:#123249!important}
-.stCaption,.stApp [data-testid="stCaptionContainer"],small{color:#315A70!important}
-[data-testid="stMetric"]{background:#FFFFFF!important;border:1px solid #B2D8E3;border-radius:16px;padding:12px;box-shadow:0 2px 8px #134b5b0b}
-[data-testid="stMetricLabel"] *,[data-testid="stMetricValue"] *{color:#08374B!important}
-.stButton > button,[data-testid="stBaseButton-primary"],.stDownloadButton button{border-radius:12px!important;background:#007D85!important;color:white!important;border:2px solid #00646c!important;font-weight:700!important;min-height:46px}
-.stButton > button *, .stDownloadButton button *{color:white!important}
-.stButton > button:hover,.stDownloadButton button:hover{background:#005F69!important;color:white!important}
-.stButton > button:disabled{background:#8FAFB6!important;border-color:#8FAFB6!important;color:#102E40!important}
-[data-baseweb="select"]>div,[data-baseweb="input"]>div,textarea,input{background:#FFFFFF!important;color:#123249!important}
-[data-baseweb="radio"] *{color:#123249!important}
-[data-testid="stExpander"]{background:#FFFFFF!important;border:1px solid #BBDCE3!important;border-radius:12px}
-[data-testid="stAlert"]{border-radius:14px}
-[data-testid="stForm"],.photo-card{background:#fff;border-radius:16px;border:1px solid #d1e7ed;padding:12px}
-.hero-photo{display:block;width:100%;max-height:340px;object-fit:cover;border-radius:18px;border:1px solid #bddde4}
-.photo-credit{font-size:0.79rem!important;color:#345A6D!important;margin:5px 0 19px}
-.photo-credit a{color:#006A84!important;text-decoration:underline}
-@media(max-width:640px){.block-container{padding:1.0rem .85rem 3rem!important}h1{font-size:1.75rem!important}h2{font-size:1.4rem!important}.hero-photo{max-height:200px}.stButton>button{min-height:48px}}
+/* Responsive layout with a consistent high-contrast light palette. */
+:root { color-scheme: light; }
+html, body, .stApp, [data-testid="stAppViewContainer"] {
+  background: #F4FAFB !important;
+  color: #143446 !important;
+}
+[data-testid="stHeader"] { background: #F4FAFB !important; }
+.block-container { max-width: 820px !important; padding: 1.0rem 1.15rem 4rem !important; }
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stMarkdownContainer"] strong,
+[data-testid="stMarkdownContainer"] em,
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3,
+[data-testid="stMarkdownContainer"] h4 { color: #143446 !important; }
+[data-testid="stMarkdownContainer"] a { color: #006F83 !important; }
+[data-testid="stCaptionContainer"] p, .stCaption { color: #36586D !important; }
+[data-testid="stMetric"] { background: white !important; border: 1px solid #B9DDE5; padding: 0.75rem; border-radius: 15px; }
+[data-testid="stMetric"] * { color: #143446 !important; }
+.stButton > button, .stDownloadButton > button, .stLinkButton a {
+    width: 100% !important; min-height: 50px !important; border-radius: 15px !important;
+    background: #077C7C !important; border: 1px solid #066467 !important;
+    color: #FFFFFF !important; font-weight: 700 !important; white-space: normal !important;
+    line-height: 1.25 !important; box-shadow: 0 3px 9px rgba(5,70,79,.10);
+}
+.stButton > button *, .stDownloadButton > button *, .stLinkButton a * { color: #FFFFFF !important; }
+.stButton > button:hover, .stDownloadButton > button:hover, .stLinkButton a:hover { background: #05636B !important; color: #FFFFFF !important; }
+.stButton > button:disabled { background: #D6E8E9 !important; color: #385667 !important; border-color: #B4CBCE !important; }
+.stButton > button:disabled * { color: #385667 !important; }
+[data-baseweb="select"] > div, [data-baseweb="input"] > div, textarea, input {
+    background: #FFFFFF !important; color: #143446 !important; border-radius: 12px !important;
+}
+[data-baseweb="select"] > div *, [data-baseweb="input"] > div *, [data-testid="stWidgetLabel"] * { color: #143446 !important; }
+[data-testid="stExpander"] { background: #FFFFFF !important; border: 1px solid #C7E3E8 !important; border-radius: 15px !important; }
+[data-testid="stExpander"] * { color: #143446 !important; }
+[data-testid="stAlert"] { border-radius: 14px !important; }
+.hero-photo { width: 100%; height: auto; display: block; border-radius: 17px; border: 1px solid #C4DFE5; }
+.photo-credit { font-size: .79rem !important; color: #395B6A !important; margin: 4px 0 15px; }
+.photo-credit a { color: #006F83 !important; text-decoration: underline; }
+.brand-header { background: linear-gradient(125deg,#006977 0%,#108D8A 60%,#24AFA0 100%);
+    border-radius: 20px; padding: 18px 18px 15px; margin: 2px 0 18px; }
+.brand-header .kicker { font-size: .81rem; letter-spacing: .09rem; text-transform: uppercase;
+    font-weight: 700; color: #DDF8F5 !important; margin-bottom: 5px; }
+.brand-header .headline { font-size: 1.75rem; font-weight: 800; line-height: 1.15;
+    color: #FFFFFF !important; margin: 0 0 6px; }
+.brand-header .tagline { color: #E9FFFD !important; font-size: .94rem; margin: 0; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; margin: 15px 0; }
+.stats-grid .stat { background: #FFFFFF; border: 1px solid #C6DFE4; border-radius: 13px;
+    padding: 12px 6px; text-align: center; min-width: 0; }
+.stats-grid .stat-num { color: #086B76 !important; font-size: 1.45rem; font-weight: 800; line-height: 1.2; }
+.stats-grid .stat-label { color: #345568 !important; font-size: .74rem; line-height: 1.2; }
+@media (max-width: 640px) {
+  .block-container { padding: 0.4rem .72rem 4rem !important; }
+  .brand-header { padding: 15px; border-radius: 17px; }
+  .brand-header .headline { font-size: 1.46rem; }
+  [data-testid="stMarkdownContainer"] h1 { font-size: 1.67rem !important; line-height: 1.2 !important; }
+  [data-testid="stMarkdownContainer"] h2 { font-size: 1.37rem !important; }
+  .stats-grid .stat-num { font-size: 1.24rem; }
+  .stats-grid .stat-label { font-size: .68rem; }
+  [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; }
+  [data-testid="column"] { flex: 1 1 100% !important; min-width: 100% !important; width: 100% !important; }
+  .hero-photo { max-height: none; object-fit: contain; }
+}
 </style>""", unsafe_allow_html=True)
 
 if 'points' not in st.session_state: st.session_state.points=0
@@ -67,7 +106,7 @@ def img(name,caption=None):
     remote, credit, source, filename = PHOTO_DATA.get(name, PHOTO_DATA['hero.svg'])
     local = ASSETS / 'photos' / filename
     if local.exists():
-        st.image(str(local), use_container_width=True)
+        st.image(str(local), width='stretch')
     else:
         st.markdown(f'<img class="hero-photo" src="{html.escape(remote,quote=True)}" alt="{html.escape(credit,quote=True)}" loading="lazy">',unsafe_allow_html=True)
     st.markdown(f'<div class="photo-credit">📷 <a href="{html.escape(source,quote=True)}" target="_blank">{html.escape(credit)}</a></div>',unsafe_allow_html=True)
@@ -77,18 +116,27 @@ def header(title,sub,asset=None):
     st.title(title);st.caption(sub)
     if asset: img(asset)
 
-LANG=st.sidebar.selectbox('Language / اللغة',['English','العربية'])
+LANG=st.selectbox('🌐 Language / اللغة',['English','العربية'], key='language')
 AR=LANG=='العربية'
 def tr(en,ar): return ar if AR else en
-st.sidebar.markdown('### 🦪 🌊')
-st.sidebar.title(tr('🌊 UAE Ocean Explorer','🌊 مستكشف بحار الإمارات'))
-PAGES=['🏠 Home','📜 Heritage','🛰️ NASA Ocean Explorer','🧠 Knowledge Quiz','🦪 Pearl Diving Game','⛵ Dhow Captain','🐢 Ocean Rescue','🏆 Achievements','📚 Sources & Project']
-if 'page' not in st.session_state:st.session_state.page=PAGES[0]
-page=st.sidebar.radio(tr('Explore','استكشف'),PAGES,index=PAGES.index(st.session_state.page))
-st.session_state.page=page
-st.sidebar.metric(tr('Discovery points','نقاط الاستكشاف'),st.session_state.points)
-st.sidebar.caption('Educational prototype • Grade 11 ICT • Not a NASA-endorsed app')
-st.sidebar.info('📱 On a phone, tap the top-left arrow to open the menu. All activities work in a mobile browser.')
+st.markdown(f"""<div class="brand-header"><div class="kicker">🌊 UAE Ocean Heritage Explorer</div>
+<div class="headline">{tr('Pearls of the Past','لآلئ الماضي')}</div>
+<p class="tagline">{tr('Explore traditions • Discover oceans • Play and learn','اكتشف التراث والبحار وتعلم باللعب')}</p></div>""", unsafe_allow_html=True)
+PAGES=['🏠 Home','📜 Heritage','🛰️ NASA Ocean Explorer','🧠 Knowledge Quiz','🦪 Pearl Diving Game','⛵ Dhow Captain','🐢 Ocean Rescue','🏆 Achievements','📚 Sources & NASA']
+if 'page' not in st.session_state or st.session_state.page not in PAGES:
+    st.session_state.page=PAGES[0]
+page=st.selectbox(tr('📍 Choose a section','📍 اختر القسم'),PAGES,key='page')
+st.caption(tr('⭐ Discovery points: ','⭐ نقاط الاستكشاف: ')+str(st.session_state.points))
+st.divider()
+
+def stats(items):
+    import html
+    st.markdown('<div class="stats-grid">'+''.join(
+      '<div class="stat"><div class="stat-num">'+html.escape(str(value))+'</div><div class="stat-label">'+html.escape(str(label))+'</div></div>'
+      for label,value in items)+'</div>',unsafe_allow_html=True)
+
+def go_to(destination):
+    st.session_state.page=destination
 
 HERITAGE=[
 ('Pearl diving','الغوص على اللؤلؤ','Pearl diving was an important part of maritime livelihoods and trade in coastal UAE communities before the oil era. Teams worked aboard pearling boats, and harvesting natural pearls required skill and endurance.','كان الغوص على اللؤلؤ جزءاً مهماً من سبل العيش والتجارة في المجتمعات الساحلية الإماراتية قبل عصر النفط.','🦪'),
@@ -101,11 +149,16 @@ if page=='🏠 Home':
     img('hero.svg')
     st.title(tr('Pearls of the Past, Oceans of the Future','لآلئ الماضي، بحار المستقبل'))
     st.write(tr('Discover UAE maritime heritage, complete interactive challenges, and explore how NASA satellites observe our changing oceans.','اكتشف التراث البحري الإماراتي وشارك في أنشطة تفاعلية وتعرّف على مراقبة ناسا للمحيطات.'))
-    a,b,c=st.columns(3)
-    a.metric('Learning sections',5);b.metric('Mini-games',3);c.metric('Your points',st.session_state.points)
+    stats([('Explore topics',5),('Mini-games',3),('Your points',st.session_state.points)])
     st.info(tr('NASA challenge alignment: Imagine Our Connected Earth. For a competition submission, add and analyze genuine NASA satellite imagery in the NASA Ocean Explorer section.','تحدي ناسا: تخيّل أرضنا المترابطة. أضف صور أقمار صناعية حقيقية وحلّلها.'))
-    st.write('**Suggested learning journey**: Heritage → NASA Ocean Explorer → Quiz → Pearl Diving → Dhow Captain → Ocean Rescue.')
-    st.caption('Real, reusable Wikimedia Commons photographs load with an internet connection. Local photos may also be saved using download_photos.py. Photo credits are linked below each image.')
+    st.markdown('**Choose your next adventure:**')
+    st.button('📜 Explore UAE sea heritage', key='nav_heritage', on_click=go_to, args=('📜 Heritage',))
+    st.button('🛰️ Explore NASA ocean data', key='nav_nasa', on_click=go_to, args=('🛰️ NASA Ocean Explorer',))
+    st.button('🧠 Take the knowledge quiz', key='nav_quiz', on_click=go_to, args=('🧠 Knowledge Quiz',))
+    st.button('🦪 Play pearl diving', key='nav_pearl', on_click=go_to, args=('🦪 Pearl Diving Game',))
+    st.button('⛵ Captain a dhow', key='nav_dhow', on_click=go_to, args=('⛵ Dhow Captain',))
+    st.button('🐢 Protect the ocean', key='nav_rescue', on_click=go_to, args=('🐢 Ocean Rescue',))
+    st.caption('Real photographs are credited to their original creators. Illustrative game numbers are fictional.')
 
 elif page=='📜 Heritage':
     header(tr('UAE Maritime Heritage','التراث البحري الإماراتي'),tr('Explore the sea-based traditions that shaped coastal life.','اكتشف التقاليد البحرية التي شكّلت الحياة الساحلية.'),'dhow.svg')
@@ -113,7 +166,7 @@ elif page=='📜 Heritage':
         with st.expander(f'{emoji} {arabic if AR else name}',expanded=name=='Pearl diving'):
             st.write(abody if AR else body)
             if st.button(tr('Mark explored','تم الاستكشاف'),key='heritage'+name):award('heritage_'+name,10);st.success(tr('Exploration recorded!','تم التسجيل!'))
-    st.caption('Historical research: Abu Dhabi Culture – Maritime Life. See Sources & Project.')
+    st.caption('Historical reference: Abu Dhabi Culture – Maritime Life. See Sources & NASA.')
 
 elif page=='🛰️ NASA Ocean Explorer':
     header(tr('NASA Ocean Explorer','مستكشف محيطات ناسا'),tr('Connect Earth observations to marine habitats and coastal communities.','اربط المراقبة الفضائية بالنظم البيئية البحرية.'),'earth.svg')
@@ -123,18 +176,14 @@ elif page=='🛰️ NASA Ocean Explorer':
     st.link_button('🌍 Open NASA Worldview', 'https://worldview.earthdata.nasa.gov/')
     st.link_button('🛰 NASA Ocean Color', 'https://oceancolor.gsfc.nasa.gov/')
     st.markdown('**Step 2 — Upload screenshots or images that YOU captured from NASA Worldview**')
-    c1,c2=st.columns(2)
-    with c1:
-        f1=st.file_uploader('Observation A — NASA image',type=['png','jpg','jpeg'],key='obs1')
-        if f1:st.image(f1,use_container_width=True)
-    with c2:
-        f2=st.file_uploader('Observation B — NASA image',type=['png','jpg','jpeg'],key='obs2')
-        if f2:st.image(f2,use_container_width=True)
+    f1=st.file_uploader('Observation A — NASA image',type=['png','jpg','jpeg'],key='obs1')
+    if f1: st.image(f1,width='stretch')
+    f2=st.file_uploader('Observation B — NASA image',type=['png','jpg','jpeg'],key='obs2')
+    if f2: st.image(f2,width='stretch')
     st.markdown('**Step 3 — Record your evidence and explanation**')
     layer=st.selectbox('NASA dataset/layer',['Sea Surface Temperature','Chlorophyll a / Ocean color','True-color satellite image','Sea Surface Temperature Anomaly','Other (specify in notes)'])
-    d1,d2=st.columns(2)
-    with d1:dt1=st.date_input('Observation A date',date(2026,7,1),key='dateA')
-    with d2:dt2=st.date_input('Observation B date',date(2026,10,1),key='dateB')
+    dt1=st.date_input('Observation A date',date(2026,7,1),key='dateA')
+    dt2=st.date_input('Observation B date',date(2026,10,1),key='dateB')
     observation=st.text_area('What changed between the observations? Describe only what the imagery supports.',placeholder='Example: Coastal water appears different in color; check cloud cover, season and layer legend before drawing conclusions.')
     link=st.text_input('Copy NASA Worldview view URL (optional)',placeholder='https://worldview.earthdata.nasa.gov/...')
     if st.button('Save NASA observation'):
@@ -144,7 +193,7 @@ elif page=='🛰️ NASA Ocean Explorer':
             st.session_state.sat_notes.append({'Layer':layer,'Date A':str(dt1),'Date B':str(dt2),'Observation':observation,'NASA URL':link})
             award('nasa_observation',30);st.success('Saved observation and earned 30 discovery points!')
     if st.session_state.sat_notes:
-        st.dataframe(st.session_state.sat_notes,use_container_width=True)
+        st.dataframe(st.session_state.sat_notes,width='stretch')
         import csv,io
         buf=io.StringIO();writer=csv.DictWriter(buf,fieldnames=['Layer','Date A','Date B','Observation','NASA URL']);writer.writeheader();writer.writerows(st.session_state.sat_notes)
         st.download_button('⬇ Download observation notes (CSV)',buf.getvalue(),'nasa_observations.csv','text/csv')
@@ -152,7 +201,7 @@ elif page=='🛰️ NASA Ocean Explorer':
     st.markdown('**Think like a scientist:** How could changing ocean temperatures influence marine organisms and coastal communities? What additional evidence would you need?')
 
 elif page=='🧠 Knowledge Quiz':
-    header(tr('Maritime Knowledge Quiz','اختبار المعرفة البحرية'),'10 questions • Immediate feedback • First correct answer earns points','pearls.svg')
+    header(tr('Maritime Knowledge Quiz','اختبار المعرفة البحرية'),'10 questions • Instant feedback • Earn points','pearls.svg')
     QA=[
         ('What was an important traditional UAE sea-based livelihood?',['Pearl diving','Satellite manufacturing','Steelmaking','Aircraft assembly'],0,'Pearl diving supported many coastal livelihoods.'),
         ('What is a dhow?',['A fish species','A traditional sailing vessel','An ocean satellite','A sea measurement'],1,'A dhow is a traditional wooden sailing vessel.'),
@@ -175,7 +224,7 @@ elif page=='🧠 Knowledge Quiz':
         q,choices,answer,ex=QA[idx];st.progress(idx/len(QA));st.subheader(f'Question {idx+1} / {len(QA)}');st.write(q)
         selected=st.session_state.quiz_answers.get(idx)
         for n,opt in enumerate(choices):
-            if st.button(opt,key=f'q{idx}_{n}',use_container_width=True,disabled=selected is not None):
+            if st.button(opt,key=f'q{idx}_{n}',width='stretch',disabled=selected is not None):
                 st.session_state.quiz_answers[idx]=n
                 if n==answer:award(f'question_{idx}',5)
                 st.rerun()
@@ -187,18 +236,17 @@ elif page=='🧠 Knowledge Quiz':
 elif page=='🦪 Pearl Diving Game':
     header(tr('Pearl Diving Adventure','مغامرة الغوص على اللؤلؤ'),'Fictional resource-management game inspired by heritage; NOT diving guidance.','pearls.svg')
     d=st.session_state.diver
-    p1,p2,p3=st.columns(3);p1.metric('Air (game units)',d['air']);p2.metric('Stamina',d['stamina']);p3.metric('Pearls',d['pearls'])
+    stats([('Air (game units)', d['air']),('Stamina',d['stamina']),('Pearls',d['pearls'])])
     st.progress(max(0,d['air'])/100)
     if d['status']=='finished':st.error('Expedition ended. Rest and plan your next adventure!')
     else:
-        col1,col2,col3=st.columns(3)
-        if col1.button('🦪 Search for oysters',use_container_width=True):
+        if st.button('🦪 Search for oysters'):
             d['air']-=25;d['stamina']-=20;d['dives']+=1
             found=random.choice([0,1,1,2]);d['pearls']+=found
             st.info(f'You found {found} virtual pearl(s). The experience is fictional.')
-        if col2.button('🛶 Return to boat',use_container_width=True):
+        if st.button('🛶 Return to boat'):
             d['air']=100;d['stamina']=min(100,d['stamina']+35);st.info('Returned to boat; resources refreshed.')
-        if col3.button('🏁 End expedition',use_container_width=True):d['status']='finished'
+        if st.button('🏁 End expedition'):d['status']='finished'
     if d['air']<=0 or d['stamina']<=0:d['status']='finished';st.warning('Your diver reached a game resource limit; expedition ends.')
     if d['pearls']>=3:award('pearl_explorer',30);st.success('Pearl Explorer achievement unlocked!')
     if st.button('Restart pearl game'):
@@ -208,8 +256,8 @@ elif page=='🦪 Pearl Diving Game':
 elif page=='⛵ Dhow Captain':
     header(tr('Dhow Captain Challenge','تحدي قبطان السفينة'),'Choose a route and manage supplies. Fictional decisions and game values.','dhow.svg')
     c=st.session_state.captain
-    x,y,z=st.columns(3);x.metric('Voyage day',c['day']);y.metric('Supplies',c['supplies']);z.metric('Safety',c['safety'])
-    st.metric('Trading points',c['trade'])
+    stats([('Voyage day',c['day']),('Supplies',c['supplies']),('Safety',c['safety'])])
+    st.caption('Trading points: '+str(c['trade']))
     if c['day']<=5 and c['supplies']>0 and c['safety']>0:
         choice=st.radio('Choose an action',['Sail to next harbor','Wait for safer weather','Trade at a coastal market'],key='voyage_choice')
         if st.button('Confirm decision'):
@@ -219,7 +267,7 @@ elif page=='⛵ Dhow Captain':
         success=c['supplies']>0 and c['safety']>0
         if success:award('captain',30);st.success('Voyage completed! Your choices balanced trade and safety.')
         else:st.error('Voyage stopped because your supplies or safety ran out.')
-    if c['history']:st.dataframe(c['history'],use_container_width=True)
+    if c['history']:st.dataframe(c['history'],width='stretch')
     if st.button('Start a new voyage'):
         st.session_state.captain={'day':1,'supplies':75,'safety':80,'trade':0,'history':[]};st.rerun()
     st.caption('Historically inspired decision-making exercise. Not a historical reconstruction or navigation advice.')
@@ -250,8 +298,8 @@ elif page=='🏆 Achievements':
             if k in st.session_state:del st.session_state[k]
         st.rerun()
 
-elif page=='📚 Sources & Project':
-    header(tr('Sources and Competition Guidance','المصادر وإرشادات المنافسة'),'Photographic credits, researched facts and source-aware student research.','earth.svg')
+elif page=='📚 Sources & NASA':
+    header(tr('Sources and NASA Research','المصادر وأبحاث ناسا'),'Learn where the images and research links come from.','earth.svg')
     st.markdown('''### NASA challenge and data
 - [2026 NASA Space Apps: Imagine Our Connected Earth](https://www.spaceappschallenge.org/2026/challenges/imagine-our-connected-earth/)
 - [NASA Worldview — satellite data layers](https://worldview.earthdata.nasa.gov/)
@@ -267,9 +315,9 @@ elif page=='📚 Sources & Project':
 - [Hawksbill sea turtle — Cmjohns6 (public domain)](https://commons.wikimedia.org/wiki/File:Hawksbill_sea_turtle.jpg)
 - These photos illustrate the subject; only the dhow photo is described as a traditional dhow, and the other pictures are **not claimed to have been taken in the UAE**. Do not describe them as NASA satellite observations.
 
-### Project authenticity
-This prototype is **not affiliated with or endorsed by NASA**. The real photographs come from Wikimedia Commons, with author and license credits below each image; original vector artwork remains in the assets folder as backup. Game scores, resource values and outcomes are fictional. The satellite explorer includes a NASA Worldview research link and accepts student-supplied NASA screenshots; it does **not** bundle or pre-fetch real NASA observations.
+### About this explorer
+This prototype is **not affiliated with or endorsed by NASA**. The real photographs come from Wikimedia Commons, with author and license credits below each image; original vector artwork remains in the assets folder as backup. Game scores, resource values and outcomes are fictional. The satellite explorer includes a NASA Worldview research link and accepts explorer-uploaded NASA screenshots; it does **not** bundle or pre-fetch real NASA observations.
 
-**Before submitting to NASA:** (1) select and study the full official challenge; (2) use at least two properly cited, genuine NASA satellite observations; (3) compare Earth-system interactions using evidence, explaining limitations; (4) make the NASA-data storytelling the central feature, rather than only the quiz or cultural history; (5) cite all external data and disclose use of starter code or AI assistance.
+**For a NASA-themed competition submission:** (1) select and study the full official challenge; (2) use at least two properly cited, genuine NASA satellite observations; (3) compare Earth-system interactions using evidence, explaining limitations; (4) make the NASA-data storytelling the central feature, rather than only the quiz or cultural history; (5) cite all external data and disclose use of starter code or AI assistance.
 ''')
-    st.download_button('Download student project summary',data='Project: Pearls of the Past, Oceans of the Future\nChallenge: Imagine Our Connected Earth\nSolution: A heritage and interactive Earth-observation learning app\nTechnologies: Python, Streamlit, student-supplied NASA Worldview observations\nValidation: Link actual NASA satellite images and record proper comparisons.\n',file_name='project_summary.txt')
+    st.download_button('Download explorer summary',data='Pearls of the Past, Oceans of the Future\nExplore UAE maritime heritage alongside NASA ocean observations.\nScientific evidence: use properly cited NASA Worldview observations.\nNote: Game values are fictional. Not affiliated with NASA.\n',file_name='ocean_explorer_summary.txt')
